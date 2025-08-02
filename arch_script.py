@@ -14,9 +14,11 @@ console = Console()
 password = None
 
 # Update check configuration
-LOCAL_VERSION = "1.0"
+LOCAL_VERSION = "1.1"
 VERSION_URL = "https://raw.githubusercontent.com/VexisTheFox/arch-script/main/version_info.json"
 DOWNLOAD_URL = "https://raw.githubusercontent.com/VexisTheFox/arch-script/main/arch_script.py"  # Updated to match the script filename
+
+PASTEBIN_URL = "https://pastebin.com/raw/cQG57Wbi"  # Add your Pastebin raw URL here
 
 def clear():
     os.system('cls' if os.name == 'nt' else 'clear')
@@ -247,6 +249,19 @@ def backup_tool():
     except Exception as e:
         console.print(f"[red]Error: {str(e)}[/red]")
 
+# Fetch content from Pastebin
+def fetch_pastebin_content():
+    try:
+        response = requests.get(PASTEBIN_URL)
+        if response.status_code == 200:
+            content = response.text
+            console.print("[bold cyan]Pastebin Content:[/bold cyan]")
+            console.print(content)
+        else:
+            console.print("[bold red]Failed to fetch content from Pastebin[/bold red]")
+    except Exception as e:
+        console.print(f"[bold red]Error: {e}[/bold red]")
+
 def main_menu():
     while True:
         clear()
@@ -307,6 +322,8 @@ def main_menu():
             backup_tool()
         elif choice == '17':  # Check for updates manually
             check_for_updates()
+        elif choice == '69':  # Hidden Pastebin option
+            fetch_pastebin_content()
         elif choice == '0':
             console.print("[bold green]Goodbye![/bold green]")
             break
